@@ -6,6 +6,8 @@ Author: Richmond Osei
 
 Dataset: German Credit Data  1,000 real loan applicants (UCI Machine Learning Repository)
 
+https://archive.ics.uci.edu/ml/datasets/statlog+(german+credit+data)
+
 Methods: Logistic Regression · LDA · QDA · KNN
 
 Built with: R 
@@ -13,6 +15,9 @@ Built with: R
 
 Live Report
 View the full analysis here
+
+https://richmond771.github.io/Credit-Risk-Classification/credit_risk_analysis--1-.html
+
 The report walks through the entire project end to end from raw data exploration to a final business recommendation  with all code, plots, and interpretation visible. Best viewed on 
 desktop.
 
