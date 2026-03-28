@@ -48,9 +48,11 @@ minimises business cost rather than overall error), and ROC curves that show per
 
 Results
 
-Method Accuracy Sensitivity Specificity AUC Logistic (threshold = 0.50)~ 75% ~50% ~88% ~0.78 Logistic (optimal threshold)~70%~70%~72%~0.78LDA~75%~50%~88%~0.78QDA~73%~55%~83%~0.77KNN 
+Method Accuracy Sensitivity Specificity AUC Logistic (threshold = 0.50)~ 75% ~ 50% ~ 88% ~ 0.78 Logistic (optimal threshold)
 
-(best K)~70%~60%~75%~0.72
+~70% ~ 70% ~ 72% ~ 0.78 LDA~ 75% ~ 50% ~ 88% ~ 0.78 QDA ~ 73% ~ 55% ~ 83% ~ 0.77 KNN 
+
+(best K) ~ 70% ~ 60% ~ 75% ~ 0.72
 
 AUC above 0.75 is generally considered good for credit scoring applications.
 
