@@ -23,6 +23,7 @@ desktop.
 
 
 The Problem
+
 Every time a bank approves a loan, it is making a bet. The applicant looks creditworthy on paper  but will they actually repay? Getting this wrong in either direction costs money:
 
 Miss a genuine defaulter  the bank takes the loss when the loan goes bad
@@ -48,13 +49,37 @@ minimises business cost rather than overall error), and ROC curves that show per
 
 Results
 
-Method Accuracy Sensitivity Specificity AUC Logistic (threshold = 0.50)~ 75% ~ 50% ~ 88% ~ 0.78 Logistic (optimal threshold)
+| Method | Accuracy | Sensitivity | Specificity | AUC |
+|--------|----------|-------------|-------------|-----|
+| Logistic (threshold = 0.50) | ~75% | ~50% | ~88% | ~0.78 |
+| Logistic (optimal threshold) | ~70% | ~70% | ~72% | ~0.78 |
+| LDA | ~75% | ~50% | ~88% | ~0.78 |
+| QDA | ~73% | ~55% | ~83% | ~0.77 |
+| KNN (best K) | ~70% | ~60% | ~75% | ~0.72 |
 
-~70% ~ 70% ~ 72% ~ 0.78 LDA~ 75% ~ 50% ~ 88% ~ 0.78 QDA ~ 73% ~ 55% ~ 83% ~ 0.77 KNN 
-
-(best K) ~ 70% ~ 60% ~ 75% ~ 0.72
 
 AUC above 0.75 is generally considered good for credit scoring applications.
+
+Key Findings
+
+1. The default threshold is the wrong threshold.
+Every model was first evaluated at the standard 50% probability cutoff. At that level, logistic regression caught only about half of the actual bad risks  meaning the bank would still approve loans for roughly 1 in 2 applicants who will later default. Lowering the threshold to the business optimal level pushed that detection rate up to 70%, which is a meaningful improvement for a real lending operation.
+
+2. Checking account status is the single strongest predictor.
+
+Applicants with no checking account or a consistently overdrawn account were significantly more likely to default  more so than loan size, income, or employment history alone. This makes intuitive sense: how someone manages their day to day finances is a stronger signal of repayment behaviour than how much they are asking to borrow.
+
+3. Longer loans are riskier, but not for the reason you might think.
+
+On the surface, loan duration looks like a strong risk factor. But once you control for loan amount, the picture changes. Longer loans tend to be larger loans, and it is the size  not the duration  that drives much of the risk. Treating duration as an independent risk factor without accounting for amount would lead to misleading credit decisions. This is a classic case of confounding.
+
+4. More complexity did not buy better performance.
+ 
+QDA and KNN  the more flexible methods did not outperform logistic regression in this analysis. The relationship between the predictors and default risk appears to be approximately linear, which means the simpler model is the right one. Adding complexity without a corresponding improvement in accuracy only makes the model harder to explain and harder to defend.
+
+5. The model is genuinely useful  but not perfect.
+
+An AUC of ~0.78 means the model correctly ranks a randomly chosen bad risk above a randomly chosen good risk about 78% of the time. That is well above random chance (50%) and sufficient to meaningfully improve lending decisions. However, about 30% of bad risks will still be missed even at the optimal threshold. The model should be used as a decision-support tool alongside human judgment, not as a replacement for it.
 
 The headline finding: logistic regression and LDA perform almost identically  which is exactly what the theory predicts for binary classification with approximately linear decision 
 
